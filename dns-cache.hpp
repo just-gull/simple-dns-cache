@@ -3,12 +3,18 @@
 
 #include <string>
 #include <unordered_map>
+#include <list>
+
+typedef typename std::pair<std::string, std::string> dns_record;
 
 class DNSCache
 {
-  std::unordered_map<std::string, std::string> cache{};
+  size_t maximum_size;
+  std::unordered_map<std::string, std::list<dns_record>::iterator> cache_map{};
+  std::list<dns_record> cache_data{};
 public:
   void update(const std::string& name, const std::string& ip);
   std::string resolve(const std::string& name) const;
+  DNSCache(size_t size);
 };
 #endif
