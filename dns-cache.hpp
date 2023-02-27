@@ -18,5 +18,8 @@ public:
   void update(const std::string& name, const std::string& ip);
   std::string resolve(const std::string& name) const;
   DNSCache(size_t size);
+  // static members
+  static size_t default_maximum_size;
+  static DNSCache& getInstance();
 };
 #endif

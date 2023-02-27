@@ -15,7 +15,8 @@ static void print_host_address(const DNSCache& dns_cache, const std::string& hos
 }
 
 int main() {
-  DNSCache dns_cache{ 50 };
+  DNSCache::default_maximum_size = 50;
+  DNSCache& dns_cache = DNSCache::getInstance();
   
   std::vector<std::thread> filler_threads, reader_threads, writer_threads;
   std::cout << "Loading DNS Cache" << std::endl;

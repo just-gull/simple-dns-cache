@@ -30,3 +30,10 @@ std::string DNSCache::resolve(const std::string& name) const {
 }
 
 DNSCache::DNSCache(size_t size) : maximum_size{ size } {}
+
+size_t DNSCache::default_maximum_size = 1'000'000;
+
+DNSCache& DNSCache::getInstance() {
+  static DNSCache instance{ DNSCache::default_maximum_size };
+  return instance;
+}
