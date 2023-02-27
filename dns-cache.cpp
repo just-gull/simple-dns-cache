@@ -1,6 +1,8 @@
 #include "dns-cache.hpp"
 
 void DNSCache::update(const std::string& name, const std::string& ip) {
+  const std::lock_guard<std::mutex> lock(cache_mutex);
+
   // checking if a record with given name is already exists  
   if (auto map_record = cache_map.find(name); map_record != cache_map.end()) {
     // removing it before inserting so it will be inserted at the beginning of the cache
@@ -21,6 +23,8 @@ void DNSCache::update(const std::string& name, const std::string& ip) {
 }
 
 std::string DNSCache::resolve(const std::string& name) const {
+  const std::lock_guard<std::mutex> lock(cache_mutex);
+  
   auto record = cache_map.at(name);
   return record->second;
 }
