@@ -44,11 +44,11 @@ int main() {
   
   // checking cache size and dns record update
   dns_cache.update("host1.local", "1.1.1.1");
-  for (int i{ 50 }; i < 65; i++) {
+  for (int i{ 50 }; i < 75; i++) {
     dns_cache.update("host" + std::to_string(i) + ".local", "1.1.1." + std::to_string(i));
   }
   // host25.local should be in the cache
-  print_host_address(dns_cache, "host25.local");
+  print_host_address(dns_cache, "host35.local");
   // host5.local should not be in the cache
   print_host_address(dns_cache, "host5.local");
   // host1.local should still be in the cache because it was updated and moved to the beginning of the cache
