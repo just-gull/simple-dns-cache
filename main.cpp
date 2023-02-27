@@ -47,7 +47,7 @@ int main() {
   for (int i{ 50 }; i < 75; i++) {
     dns_cache.update("host" + std::to_string(i) + ".local", "1.1.1." + std::to_string(i));
   }
-  // host25.local should be in the cache
+  // host35.local should be in the cache
   print_host_address(dns_cache, "host35.local");
   // host5.local should not be in the cache
   print_host_address(dns_cache, "host5.local");
