@@ -21,7 +21,6 @@ public:
   std::string resolve(const std::string& name) const;
   DNSCache(size_t size);
   // static members
-  static size_t default_maximum_size;
-  static DNSCache& getInstance();
+  static DNSCache& getInstance(size_t size);
 };
 #endif

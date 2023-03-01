@@ -1,5 +1,7 @@
 #include "dns-cache.hpp"
 
+#include <stdexcept>
+
 void DNSCache::update(const std::string& name, const std::string& ip) {
   const std::lock_guard<std::mutex> lock(cache_mutex);
 
@@ -31,9 +33,11 @@ std::string DNSCache::resolve(const std::string& name) const {
 
 DNSCache::DNSCache(size_t size) : maximum_size{ size } {}
 
-size_t DNSCache::default_maximum_size = 1'000'000;
-
-DNSCache& DNSCache::getInstance() {
-  static DNSCache instance{ DNSCache::default_maximum_size };
-  return instance;
+DNSCache& DNSCache::getInstance(size_t size) {
+  static DNSCache instance{ size };
+  if (size == instance.maximum_size) {
+    return instance;
+  } else {
+    throw std::runtime_error{ "Requested DNS Cache with size " + std::to_string(size) + " but existing instance has size " + std::to_string(instance.maximum_size) };
+  }
 }
