@@ -6,10 +6,12 @@
 #include <list>
 #include <mutex>
 
-typedef typename std::pair<std::string, std::string> dns_record;
-
 class DNSCache
 {
+  // type aliases
+  using dns_record = std::pair<std::string, std::string>; 
+
+  // private members
   size_t maximum_size;
   std::unordered_map<std::string, std::list<dns_record>::iterator> cache_map{};
   std::list<dns_record> cache_data{};
