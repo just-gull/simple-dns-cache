@@ -3,7 +3,7 @@
 #include <stdexcept>
 
 void DNSCache::update(const std::string& name, const std::string& ip) {
-  const std::lock_guard<std::mutex> lock(cache_mutex);
+  const std::lock_guard<std::shared_mutex> lock(cache_mutex);
 
   // checking if a record with given name is already exists  
   if (auto map_record = cache_map.find(name); map_record != cache_map.end()) {
@@ -25,7 +25,7 @@ void DNSCache::update(const std::string& name, const std::string& ip) {
 }
 
 std::string DNSCache::resolve(const std::string& name) const {
-  const std::lock_guard<std::mutex> lock(cache_mutex);
+  const std::shared_lock<std::shared_mutex> lock(cache_mutex);
   
   auto record = cache_map.at(name);
   return record->second;
