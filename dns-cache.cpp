@@ -12,7 +12,7 @@ void DNSCache::update(const std::string& name, const std::string& ip) {
   }
 
   // checking if the cache is full
-  if (cache_data.size() == maximum_size) {
+  if (cache_map.size() == maximum_size) {
     // removing the last element from cache
     auto last_record = cache_data.back();
     cache_data.pop_back();
